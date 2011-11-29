@@ -1,0 +1,31 @@
+This is a Ruby final project
+
+
+The people search script calls the whitepages pro api.
+
+Base url api:  https://proapi.whitepages.com/find_person/1.0/?api_key=8249b41718b02c013694000c6900061e;outputtype=JSON
+
+We then append the search parameters that we query from the user:  ;firstname=#{fname};lastname=#{lname};where=#{where}"
+
+The long term goal is to have all this driven by a webpage UI but for now, it's all invoked from command line.
+
+ruby  ./people_search.rb 
+
+
+The resulting JSON is parsed and the following information is presented to the user (again, the long term goal is to present the results as a webpage)
+
+Example:
+Sung Baek
+22522 29th Dr SE, Ste 104
+Bothell, WA 98021
+(425) 467-0667
+
+Sung J Baek
+23207 Lower Dorre Don Way SE
+Maple Valley, WA 98038
+(425) 413-0529
+
+Sung R Baek
+5919 St Andrews Dr
+Mukilteo, WA 98275
+(425) 493-9184
