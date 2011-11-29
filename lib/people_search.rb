@@ -3,7 +3,8 @@ require 'json'
 require 'net/http'
 require 'net/https'
 require 'uri'
-
+require 'sinatra'
+require 'haml'
 
 # search for a person based on first name, last name and location.  Location can be city and state or state or zip
 def person_search(fname, lname, where)
@@ -39,9 +40,6 @@ end
 
 def print_persons (hash)
   people_list = hash
-  #print JSON.pretty_generate(people_list), "\n"    
-  #print people_list.keys, "\n"
-  #print JSON.pretty_generate(people_list['listings'][1])
 
   people_list['listings'].each do
     |people| 
@@ -59,6 +57,28 @@ def print_persons (hash)
   end
 
 end
+
+
+## print the output to the website
+def print_web (hash)
+  people_list = hash
+  display = []
+  get '/' do
+    people_list['listings'].each do
+      |people| 
+      display << people['displayname']
+      display << people['address']['fullstreet'] 
+      display << people['address']['city'] + ' ' + people['address']['state'] + ', ' + people['address']['zip']
+
+### need to test to make sure that nothing is null:  not everyone has a telephone
+      if (!(people['phonenumbers'].nil? || people['phonenumbers'][0].nil? || people['phonenumbers'][0]['fullphone'].nil?) )
+        display << people['phonenumbers'][0]['fullphone']
+      end
+      display << "\n"
+    end
+    "<thml><body><pre>#{display.join("\n")}</pre></body></htmml>"
+  end
+end  
 
 
 
@@ -92,6 +112,7 @@ end
 search_param = get_param
 persons = person_search(search_param[0],search_param[1],search_param[2])
 print_persons (persons)
+print_web(persons)
 
 
 
