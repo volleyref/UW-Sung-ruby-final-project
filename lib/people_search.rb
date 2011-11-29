@@ -40,7 +40,8 @@ end
 
 def print_persons (hash)
   people_list = hash
-
+  puts "\e[H\e[2J"
+  print "\nList of results matching your query \n\n"
   people_list['listings'].each do
     |people| 
     print people['displayname'], "\n"
@@ -85,6 +86,7 @@ end
 
 #### function to query the user for the search parameters.  Need to ensure that the inputs don't have newlines or spaces between words
 def get_param ()
+  puts "\e[H\e[2J"
   puts "Enter the first name:  "
   firstname = gets.chomp!                   #chomp to remove the newline from the input
   firstname.gsub!(/\s/,'+')                 # need to replace spaces with +
