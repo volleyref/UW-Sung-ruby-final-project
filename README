@@ -1,11 +1,15 @@
 This is a Ruby final project
 
+git@github.com:volleyref/UW-Sung-ruby-final-project.git
+
 
 The people search script calls the whitepages pro api.
 
 Base url api:  https://proapi.whitepages.com/find_person/1.0/?api_key=8249b41718b02c013694000c6900061e;outputtype=JSON
 
 We then append the search parameters that we query from the user:  ;firstname=#{fname};lastname=#{lname};where=#{where}"
+
+The only required field is Lastname.  If the firstname or the where location is left blank, the search will be a broader search with no firstname or nationwide.
 
 The long term goal is to have all this driven by a webpage UI but for now, it's all invoked from command line.
 
